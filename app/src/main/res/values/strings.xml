@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pubspot</string>
+    <string name="button_addPub">Add a Pub</string>
+    <string name="hint_pubName">Pub Name</string>
 </resources>
