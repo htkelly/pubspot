@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import org.wit.pubspot.databinding.ActivityPubspotBinding
+import org.wit.pubspot.main.MainApp
 import org.wit.pubspot.models.PubspotModel
 import timber.log.Timber
 import timber.log.Timber.i
@@ -12,7 +13,7 @@ class PubspotActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPubspotBinding
     var pub = PubspotModel()
-    val pubs = ArrayList<PubspotModel>()
+    lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +21,8 @@ class PubspotActivity : AppCompatActivity() {
         binding = ActivityPubspotBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Timber.plant(Timber.DebugTree())
+        app = application as MainApp
+
         i("Pubspot Activity started...")
 
         binding.btnAdd.setOnClickListener() {
@@ -28,10 +30,13 @@ class PubspotActivity : AppCompatActivity() {
             pub.description = binding.description.text.toString()
             pub.rating = binding.rating.rating.toInt()
             if (pub.name.isNotEmpty()) {
-                pubs.add(pub.copy())
+                app.pubs.add(pub.copy())
                 i("Added pub: ${pub.name}")
-                for(i in pubs.indices)
-                { i("Pub[$i]: ${this.pubs[i]}") }
+                for(i in app.pubs.indices) {
+                    i("Pub[$i]: ${app.pubs[i]}")
+                }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
                 Snackbar
