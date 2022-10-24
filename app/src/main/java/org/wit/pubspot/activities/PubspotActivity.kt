@@ -21,6 +21,8 @@ class PubspotActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        var edit = false
+
         binding = ActivityPubspotBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -32,27 +34,30 @@ class PubspotActivity : AppCompatActivity() {
         i("Pubspot Activity started...")
 
         if (intent.hasExtra("pubspot_edit")) {
+            edit = true
             pub = intent.extras?.getParcelable("pubspot_edit")!!
             binding.pubName.setText(pub.name)
             binding.description.setText(pub.description)
             binding.rating.rating = pub.rating.toFloat()
+            binding.btnAdd.setText(R.string.save_pub)
         }
 
         binding.btnAdd.setOnClickListener() {
             pub.name = binding.pubName.text.toString()
             pub.description = binding.description.text.toString()
             pub.rating = binding.rating.rating.toInt()
-            if (pub.name.isNotEmpty()) {
-                app.pubs.create(pub.copy())
-                i("Added pub: ${pub.name}")
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar
-                    .make(it,"Please enter a pub name", Snackbar.LENGTH_LONG)
+            if (pub.name.isEmpty()) {
+                Snackbar.make(it, R.string.enter_pub_name, Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if (edit) {
+                    app.pubs.update(pub.copy())
+                } else {
+                    app.pubs.create(pub.copy())
+                }
             }
+            setResult(RESULT_OK)
+            finish()
         }
     }
 

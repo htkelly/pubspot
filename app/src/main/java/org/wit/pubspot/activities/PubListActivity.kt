@@ -52,4 +52,9 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
         launcherIntent.putExtra("pubspot_edit", pub)
         startActivityForResult(launcherIntent, 0)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }
