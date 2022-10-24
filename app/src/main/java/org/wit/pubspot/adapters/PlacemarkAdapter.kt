@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import org.wit.pubspot.databinding.CardPubBinding
 import org.wit.pubspot.models.PubspotModel
 
-class PubspotAdapter constructor(private var pubs: List<PubspotModel>) : RecyclerView.Adapter<PubspotAdapter.MainHolder>() {
+interface PubspotListener {
+    fun onPubspotClick(pub: PubspotModel)
+}
+
+class PubspotAdapter constructor(private var pubs: List<PubspotModel>, private val listener: PubspotListener) : RecyclerView.Adapter<PubspotAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardPubBinding
@@ -16,16 +20,17 @@ class PubspotAdapter constructor(private var pubs: List<PubspotModel>) : Recycle
     }
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val pub = pubs[holder.adapterPosition]
-        holder.bind(pub)
+        holder.bind(pub, listener)
     }
 
     override fun getItemCount(): Int = pubs.size
 
     class MainHolder(private val binding : CardPubBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(pub: PubspotModel) {
+        fun bind(pub: PubspotModel, listener: PubspotListener) {
             binding.pubName.text = pub.name
             binding.description.text = pub.description
             binding.rating.rating = pub.rating.toFloat()
+            binding.root.setOnClickListener { listener.onPubspotClick(pub) }
         }
     }
 

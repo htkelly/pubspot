@@ -31,6 +31,13 @@ class PubspotActivity : AppCompatActivity() {
 
         i("Pubspot Activity started...")
 
+        if (intent.hasExtra("pubspot_edit")) {
+            pub = intent.extras?.getParcelable("pubspot_edit")!!
+            binding.pubName.setText(pub.name)
+            binding.description.setText(pub.description)
+            binding.rating.rating = pub.rating.toFloat()
+        }
+
         binding.btnAdd.setOnClickListener() {
             pub.name = binding.pubName.text.toString()
             pub.description = binding.description.text.toString()
@@ -38,7 +45,6 @@ class PubspotActivity : AppCompatActivity() {
             if (pub.name.isNotEmpty()) {
                 app.pubs.create(pub.copy())
                 i("Added pub: ${pub.name}")
-                app.pubs.logAll()
                 setResult(RESULT_OK)
                 finish()
             }

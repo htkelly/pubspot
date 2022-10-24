@@ -8,10 +8,12 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.pubspot.R
 import org.wit.pubspot.adapters.PubspotAdapter
+import org.wit.pubspot.adapters.PubspotListener
 import org.wit.pubspot.databinding.ActivityPubListBinding
 import org.wit.pubspot.main.MainApp
+import org.wit.pubspot.models.PubspotModel
 
-class PubListActivity : AppCompatActivity() {
+class PubListActivity : AppCompatActivity(), PubspotListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPubListBinding
@@ -27,7 +29,7 @@ class PubListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = PubspotAdapter(app.pubs.findAll())
+        binding.recyclerView.adapter = PubspotAdapter(app.pubs.findAll(), this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -43,5 +45,11 @@ class PubListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPubspotClick(pub: PubspotModel) {
+        val launcherIntent = Intent(this, PubspotActivity::class.java)
+        launcherIntent.putExtra("pubspot_edit", pub)
+        startActivityForResult(launcherIntent, 0)
     }
 }
