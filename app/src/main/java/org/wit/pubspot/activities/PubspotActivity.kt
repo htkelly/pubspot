@@ -2,7 +2,10 @@ package org.wit.pubspot.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
+import org.wit.pubspot.R
 import org.wit.pubspot.databinding.ActivityPubspotBinding
 import org.wit.pubspot.main.MainApp
 import org.wit.pubspot.models.PubspotModel
@@ -20,6 +23,9 @@ class PubspotActivity : AppCompatActivity() {
 
         binding = ActivityPubspotBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
 
@@ -44,5 +50,19 @@ class PubspotActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_pub, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -4,4 +4,5 @@
     <string name="hint_pubName">Pub Name</string>
     <string name="hint_pubDescription">Description</string>
     <string name="menu_addPub">Add</string>
+    <string name="menu_cancelPub">Cancel</string>
 </resources>
