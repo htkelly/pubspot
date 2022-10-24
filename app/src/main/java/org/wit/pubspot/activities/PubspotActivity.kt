@@ -36,11 +36,9 @@ class PubspotActivity : AppCompatActivity() {
             pub.description = binding.description.text.toString()
             pub.rating = binding.rating.rating.toInt()
             if (pub.name.isNotEmpty()) {
-                app.pubs.add(pub.copy())
+                app.pubs.create(pub.copy())
                 i("Added pub: ${pub.name}")
-                for(i in app.pubs.indices) {
-                    i("Pub[$i]: ${app.pubs[i]}")
-                }
+                app.pubs.logAll()
                 setResult(RESULT_OK)
                 finish()
             }

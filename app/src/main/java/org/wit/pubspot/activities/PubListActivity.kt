@@ -27,7 +27,7 @@ class PubListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = PubspotAdapter(app.pubs)
+        binding.recyclerView.adapter = PubspotAdapter(app.pubs.findAll())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
