@@ -28,6 +28,7 @@ class PubspotMemStore : PubspotStore {
             foundPub.name = pub.name
             foundPub.description = pub.description
             foundPub.rating = pub.rating
+            foundPub.image = pub.image
             logAll()
         }
     }

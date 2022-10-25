@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.pubspot.R
 import org.wit.pubspot.adapters.PubspotAdapter
@@ -17,6 +19,13 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPubListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +33,8 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
         setContentView(binding.root)
+
+        registerRefreshCallback()
 
         app = application as MainApp
 
@@ -41,7 +52,7 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, PubspotActivity::class.java)
-                startActivityForResult(launcherIntent, 0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -50,11 +61,6 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
     override fun onPubspotClick(pub: PubspotModel) {
         val launcherIntent = Intent(this, PubspotActivity::class.java)
         launcherIntent.putExtra("pubspot_edit", pub)
-        startActivityForResult(launcherIntent, 0)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 }

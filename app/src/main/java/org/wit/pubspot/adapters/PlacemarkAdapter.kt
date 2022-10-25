@@ -3,6 +3,7 @@ package org.wit.pubspot.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.wit.pubspot.databinding.CardPubBinding
 import org.wit.pubspot.models.PubspotModel
 
@@ -30,6 +31,7 @@ class PubspotAdapter constructor(private var pubs: List<PubspotModel>, private v
             binding.pubName.text = pub.name
             binding.description.text = pub.description
             binding.rating.rating = pub.rating.toFloat()
+            Picasso.get().load(pub.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onPubspotClick(pub) }
         }
     }
