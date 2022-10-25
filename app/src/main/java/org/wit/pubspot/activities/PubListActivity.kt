@@ -24,7 +24,16 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+            { loadPubs() }
+    }
+
+    private fun loadPubs() {
+        showPubs(app.pubs.findAll())
+    }
+
+    private fun showPubs(pubs: List<PubspotModel>) {
+        binding.recyclerView.adapter = PubspotAdapter(pubs, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +43,13 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
         setSupportActionBar(binding.toolbar)
         setContentView(binding.root)
 
-        registerRefreshCallback()
-
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = PubspotAdapter(app.pubs.findAll(), this)
+        loadPubs()
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
