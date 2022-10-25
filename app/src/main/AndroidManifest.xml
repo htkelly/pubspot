@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pubspot"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+        <activity
+            android:name=".activities.MapActivity"
+            android:exported="false"
+            android:label="@string/title_activity_map" />
         <activity
             android:name=".activities.PubListActivity"
             android:exported="true">
@@ -25,8 +34,7 @@
         </activity>
         <activity
             android:name=".activities.PubspotActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

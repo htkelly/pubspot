@@ -14,6 +14,7 @@ import org.wit.pubspot.R
 import org.wit.pubspot.databinding.ActivityPubspotBinding
 import org.wit.pubspot.helpers.showImagePicker
 import org.wit.pubspot.main.MainApp
+import org.wit.pubspot.models.Location
 import org.wit.pubspot.models.PubspotModel
 import timber.log.Timber
 import timber.log.Timber.i
@@ -21,6 +22,7 @@ import timber.log.Timber.i
 class PubspotActivity : AppCompatActivity() {
 
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var binding: ActivityPubspotBinding
     var pub = PubspotModel()
     lateinit var app: MainApp
@@ -37,6 +39,7 @@ class PubspotActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         registerImagePickerCallback()
+        registerMapCallback()
 
         app = application as MainApp
 
@@ -79,6 +82,18 @@ class PubspotActivity : AppCompatActivity() {
             i("Launching image picker")
             showImagePicker(imageIntentLauncher)
         }
+
+        binding.pubLocation.setOnClickListener {
+            val location = Location(52.65049980615224, -7.249279125737909, 15f)
+            if (pub.zoom != 0f) {
+                location.lat = pub.lat
+                location.lng = pub.lng
+                location.zoom = pub.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -108,6 +123,26 @@ class PubspotActivity : AppCompatActivity() {
                                 .load(pub.image)
                                 .into(binding.pubImage)
                             binding.chooseImage.setText(R.string.change_pub_image)
+                        }
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            pub.lat = location.lat
+                            pub.lng = location.lng
+                            pub.zoom = location.zoom
                         }
                     }
                     RESULT_CANCELED -> { } else -> { }
