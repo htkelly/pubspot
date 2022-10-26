@@ -36,6 +36,10 @@ class PubspotMemStore : PubspotStore {
         }
     }
 
+    override fun delete(pub: PubspotModel) {
+        pubs.remove(pub)
+    }
+
     fun logAll() {
         pubs.forEach{ i("${it}") }
     }

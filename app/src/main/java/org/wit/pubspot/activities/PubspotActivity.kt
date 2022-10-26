@@ -16,7 +16,6 @@ import org.wit.pubspot.helpers.showImagePicker
 import org.wit.pubspot.main.MainApp
 import org.wit.pubspot.models.Location
 import org.wit.pubspot.models.PubspotModel
-import timber.log.Timber
 import timber.log.Timber.i
 
 class PubspotActivity : AppCompatActivity() {
@@ -60,7 +59,7 @@ class PubspotActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnAdd.setOnClickListener() {
+        binding.btnAdd.setOnClickListener {
             pub.name = binding.pubName.text.toString()
             pub.description = binding.description.text.toString()
             pub.rating = binding.rating.rating.toInt()
@@ -98,12 +97,21 @@ class PubspotActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_pub, menu)
+        if (!intent.hasExtra("pubspot_edit")) {
+            menu.findItem(R.id.item_delete).isVisible = false
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
+                finish()
+            }
+            R.id.item_delete -> {
+                pub = intent.extras?.getParcelable("pubspot_edit")!!
+                app.pubs.delete(pub)
+                setResult(RESULT_OK)
                 finish()
             }
         }

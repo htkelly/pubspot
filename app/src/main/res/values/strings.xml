@@ -5,6 +5,7 @@
     <string name="hint_pubDescription">Description</string>
     <string name="menu_addPub">Add</string>
     <string name="menu_cancelPub">Cancel</string>
+    <string name="menu_deletePub">Delete</string>
     <string name="enter_pub_name"> Please enter a pub name </string>
     <string name="save_pub"> Save Pub </string>
     <string name="button_addImage"> Add Image </string>

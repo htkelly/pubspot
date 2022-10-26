@@ -4,4 +4,5 @@ interface PubspotStore {
     fun findAll(): List<PubspotModel>
     fun create(pub: PubspotModel)
     fun update(pub: PubspotModel)
+    fun delete(pub: PubspotModel)
 }
