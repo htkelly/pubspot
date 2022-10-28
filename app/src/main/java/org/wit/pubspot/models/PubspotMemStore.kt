@@ -42,11 +42,11 @@ class PubspotMemStore : PubspotStore {
 
     override fun deleteAll() {
         pubs.clear()
+        lastId = 0L
         logAll()
     }
 
     fun logAll() {
         pubs.forEach{ i("${it}") }
     }
-
 }
