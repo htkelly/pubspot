@@ -72,9 +72,9 @@ class PubspotActivity : AppCompatActivity() {
                 } else {
                     app.pubs.create(pub.copy())
                 }
+                setResult(RESULT_OK)
+                finish()
             }
-            setResult(RESULT_OK)
-            finish()
         }
 
         binding.chooseImage.setOnClickListener {
