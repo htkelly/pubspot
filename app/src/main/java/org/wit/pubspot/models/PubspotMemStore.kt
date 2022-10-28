@@ -40,7 +40,13 @@ class PubspotMemStore : PubspotStore {
         pubs.remove(pub)
     }
 
+    override fun deleteAll() {
+        pubs.clear()
+        logAll()
+    }
+
     fun logAll() {
         pubs.forEach{ i("${it}") }
     }
+
 }

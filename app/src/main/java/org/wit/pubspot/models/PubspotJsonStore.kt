@@ -59,6 +59,11 @@ class PubspotJsonStore(private val context: Context) : PubspotStore {
         serialize()
     }
 
+    override fun deleteAll() {
+        pubs.clear()
+        serialize()
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(pubs, listType)
         write(context, JSON_FILE, jsonString)

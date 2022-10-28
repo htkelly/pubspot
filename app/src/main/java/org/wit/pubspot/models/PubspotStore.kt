@@ -5,4 +5,5 @@ interface PubspotStore {
     fun create(pub: PubspotModel)
     fun update(pub: PubspotModel)
     fun delete(pub: PubspotModel)
+    fun deleteAll()
 }
