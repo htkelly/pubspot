@@ -29,6 +29,7 @@ class PubspotMemStore : PubspotStore {
             foundPub.description = pub.description
             foundPub.rating = pub.rating
             foundPub.image = pub.image
+            foundPub.tags = pub.tags
             foundPub.lat = pub.lat
             foundPub.lng = pub.lng
             foundPub.zoom = pub.zoom

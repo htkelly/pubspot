@@ -10,6 +10,7 @@ data class PubspotModel(var id: Long = 0,
                         var description: String = "",
                         var rating: Int = 0,
                         var image: Uri = Uri.EMPTY,
+                        var tags: ArrayList<String> = ArrayList(),
                         var lat: Double = 0.0,
                         var lng: Double = 0.0,
                         var zoom: Float = 0f) : Parcelable

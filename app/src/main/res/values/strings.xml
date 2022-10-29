@@ -13,4 +13,11 @@
     <string name="change_pub_image">Change pub image</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
+    <string name="button_set_tags">Set Tags</string>
+    <string name="menu_doneTags">Done</string>
+    <string name="menu_cancelTags">Cancel</string>
+    <string name="tag_wifi">Wi-Fi</string>
+    <string name="tag_dog_friendly">Dog Friendly</string>
+    <string name="tag_food_served">Food Served</string>
+    <string name="tag_wheelchair_accessible">Wheelchair Accessible</string>
 </resources>

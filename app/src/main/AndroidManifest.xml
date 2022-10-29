@@ -34,7 +34,10 @@
         </activity>
         <activity
             android:name=".activities.PubspotActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+        <activity
+            android:name=".activities.TagActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

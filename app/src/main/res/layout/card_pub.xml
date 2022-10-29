@@ -34,22 +34,80 @@
             android:textSize="30sp"
             tools:text="A Pub Name" />
 
-        <TextView
-            android:id="@+id/description"
+        <RatingBar style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/pubName"
             android:layout_toRightOf="@id/imageIcon"
-            tools:text="A Pub Description" />
-
-        <RatingBar
-            android:id="@+id/rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="0.3"
-            android:scaleY="0.3"
-            android:layout_alignParentEnd="true"
             android:isIndicator="true" />
 
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rating"
+            android:layout_toRightOf="@id/imageIcon"
+            tools:text="A Pub Description" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            android:layout_marginTop="5dp"
+            tools:ignore="MissingConstraints">
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/tag_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tag_wifi,tag_wheelchair_accessible,tag_dog_friendly,tag_food_served"
+                app:flow_horizontalAlign="start"
+                app:flow_horizontalBias="0"
+                app:flow_maxElementsWrap="3"
+                app:flow_verticalBias="0"
+                app:flow_verticalGap="3dp"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tag_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tag_back"
+                android:padding="2dp"
+                tools:text="@string/tag_wifi"
+                android:text="@string/tag_wifi"/>
+
+            <TextView
+                android:id="@+id/tag_wheelchair_accessible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:background="@drawable/tag_back"
+                tools:text="@string/tag_wheelchair_accessible"
+                android:text="@string/tag_wheelchair_accessible"/>
+
+            <TextView
+                android:id="@+id/tag_dog_friendly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:background="@drawable/tag_back"
+                tools:text="@string/tag_dog_friendly"
+                android:text="@string/tag_dog_friendly"/>
+
+            <TextView
+                android:id="@+id/tag_food_served"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:background="@drawable/tag_back"
+                tools:text="@string/tag_food_served"
+                android:text="@string/tag_food_served"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

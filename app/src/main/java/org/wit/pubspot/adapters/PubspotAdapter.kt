@@ -2,6 +2,7 @@ package org.wit.pubspot.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.wit.pubspot.databinding.CardPubBinding
@@ -32,6 +33,10 @@ class PubspotAdapter constructor(private var pubs: List<PubspotModel>, private v
             binding.description.text = pub.description
             binding.rating.rating = pub.rating.toFloat()
             Picasso.get().load(pub.image).resize(200,200).into(binding.imageIcon)
+            if (!pub.tags.contains("Wi-Fi")) binding.tagWifi.isVisible = false
+            if (!pub.tags.contains("Wheelchair Accessible")) binding.tagWheelchairAccessible.isVisible = false
+            if (!pub.tags.contains("Dog Friendly")) binding.tagDogFriendly.isVisible = false
+            if (!pub.tags.contains("Food Served")) binding.tagFoodServed.isVisible = false
             binding.root.setOnClickListener { listener.onPubspotClick(pub) }
         }
     }

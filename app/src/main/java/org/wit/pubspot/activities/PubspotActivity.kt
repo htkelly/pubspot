@@ -22,6 +22,7 @@ class PubspotActivity : AppCompatActivity() {
 
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var tagIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var binding: ActivityPubspotBinding
     var pub = PubspotModel()
     lateinit var app: MainApp
@@ -39,6 +40,7 @@ class PubspotActivity : AppCompatActivity() {
 
         registerImagePickerCallback()
         registerMapCallback()
+        registerTagCallback()
 
         app = application as MainApp
 
@@ -92,6 +94,15 @@ class PubspotActivity : AppCompatActivity() {
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
+        }
+
+        binding.setTags.setOnClickListener {
+            i("Launching tag selector activity")
+            val launcherIntent = Intent(this, TagActivity::class.java)
+            if (edit) {
+                launcherIntent.putExtra("pubspot_edit", pub)
+            }
+            tagIntentLauncher.launch(launcherIntent)
         }
     }
 
@@ -151,6 +162,23 @@ class PubspotActivity : AppCompatActivity() {
                             pub.lat = location.lat
                             pub.lng = location.lng
                             pub.zoom = location.zoom
+                        }
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun registerTagCallback() {
+        tagIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if(result.data != null){
+                            val tags = result.data!!.extras?.get("tags")
+                            i("Tags: ${tags.toString()}")
+                            pub.tags = tags as ArrayList<String>
                         }
                     }
                     RESULT_CANCELED -> { } else -> { }
