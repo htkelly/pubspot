@@ -10,6 +10,7 @@ Our current release, v.1.2.0, includes the following features:
 - Tag pubs with relevant points of information
 - Set pub location using Google Maps
 - Set a pub image (using camera or image gallery)
+- For QA purposes, we have local unit testing of in-memory models
 
 ## Coming soon
 We're working on a multi-user version of the app, with users and pubs persisted in storage. Check out the multi-user branch of this repo to see our progress!
