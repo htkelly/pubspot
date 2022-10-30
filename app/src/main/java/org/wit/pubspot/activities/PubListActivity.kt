@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.pubspot.R
 import org.wit.pubspot.adapters.PubspotAdapter
@@ -18,6 +19,7 @@ import org.wit.pubspot.models.PubspotModel
 class PubListActivity : AppCompatActivity(), PubspotListener {
 
     lateinit var app: MainApp
+    private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityPubListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
@@ -35,21 +37,21 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
     }
 
     private fun showPubs(pubs: List<PubspotModel>) {
-        binding.recyclerView.adapter = PubspotAdapter(pubs, this)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
+        binding.pubListContent.recyclerView.adapter = PubspotAdapter(pubs, this)
+        binding.pubListContent.recyclerView.adapter?.notifyDataSetChanged()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPubListBinding.inflate(layoutInflater)
-        binding.toolbar.title = title
-        setSupportActionBar(binding.toolbar)
+        binding.pubListContent.toolbar.title = title
+        setSupportActionBar(binding.pubListContent.toolbar)
         setContentView(binding.root)
 
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.layoutManager = layoutManager
+        binding.pubListContent.recyclerView.layoutManager = layoutManager
         loadPubs()
 
         registerRefreshCallback()
@@ -65,6 +67,9 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, PubspotActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
+            }
+            R.id.item_account -> {
+                //TODO: open nav drawer here
             }
         }
         return super.onOptionsItemSelected(item)
