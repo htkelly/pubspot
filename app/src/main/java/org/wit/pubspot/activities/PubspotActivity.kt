@@ -79,9 +79,9 @@ class PubspotActivity : AppCompatActivity(), SetImageDialog.SetImageDialogListen
                     .show()
             } else {
                 if (edit) {
-                    app.pubs.update(pub.copy())
+                    app.unifiedStorage.updateUserPub(app.loggedInUser!!, pub.copy())
                 } else {
-                    app.pubs.create(pub.copy())
+                    app.unifiedStorage.createUserPub(app.loggedInUser!!, pub.copy())
                 }
                 setResult(RESULT_OK)
                 finish()
@@ -129,7 +129,7 @@ class PubspotActivity : AppCompatActivity(), SetImageDialog.SetImageDialogListen
             }
             R.id.item_delete -> {
                 pub = intent.extras?.getParcelable("pubspot_edit")!!
-                app.pubs.delete(pub)
+                app.unifiedStorage.deleteUserPub(app.loggedInUser!!, pub)
                 setResult(RESULT_OK)
                 finish()
             }

@@ -32,21 +32,20 @@ class LoginActivity : AppCompatActivity() {
         binding.signupBtn.setOnClickListener(){
             val signupUser = UserModel(email = binding.loginEmail.text.toString(), password = binding.loginPassword.text.toString())
             val launcherIntent = Intent(this, PubListActivity::class.java)
-            app.users.create(signupUser)
-            app.users.logAll()
-            launcherIntent.putExtra("loggedInUser", signupUser)
+            app.unifiedStorage.createUser(signupUser)
+            app.loggedInUser = signupUser
             pubListIntentLauncher.launch(launcherIntent)
         }
 
         binding.loginBtn.setOnClickListener(){
-            val loginUser = authenticate(binding.loginEmail.text.toString(), binding.loginPassword.text.toString(), app.users)
+            val loginUser = authenticate(binding.loginEmail.text.toString(), binding.loginPassword.text.toString(), app.unifiedStorage)
             val launcherIntent = Intent(this, PubListActivity::class.java)
             if (loginUser == null) {
                 Snackbar.make(it, R.string.login_error, Snackbar.LENGTH_LONG)
                     .show()
             }
             else {
-                launcherIntent.putExtra("loggedInUser", loginUser)
+                app.loggedInUser = loginUser
                 pubListIntentLauncher.launch(launcherIntent)
             }
         }

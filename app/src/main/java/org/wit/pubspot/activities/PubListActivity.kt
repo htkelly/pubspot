@@ -28,7 +28,10 @@ class PubListActivity : AppCompatActivity(), PubspotListener {
     }
 
     private fun loadPubs() {
-        showPubs(app.pubs.findAll())
+        if (app.loggedInUser != null) {
+            showPubs(app.unifiedStorage.findAllUserPubs(app.loggedInUser!!))
+        }
+        else finish()
     }
 
     private fun showPubs(pubs: List<PubspotModel>) {
