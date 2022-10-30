@@ -20,4 +20,7 @@
     <string name="tag_dog_friendly">Dog Friendly</string>
     <string name="tag_food_served">Food Served</string>
     <string name="tag_wheelchair_accessible">Wheelchair Accessible</string>
+    <string name="dialog_set_image">Do you want to choose an image or take a photo?</string>
+    <string name="choice_choose_image">Choose an image</string>
+    <string name="choice_take_photo">"Take a photo"</string>
 </resources>

@@ -1,8 +1,13 @@
 package org.wit.pubspot.helpers
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Environment
 import timber.log.Timber.e
 import java.io.*
+import java.text.DateFormat.getDateTimeInstance
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun write(context: Context, fileName: String, data: String) {
     try {
@@ -42,4 +47,10 @@ fun read(context: Context, fileName: String): String {
 fun exists(context: Context, filename: String): Boolean {
     val file = context.getFileStreamPath(filename)
     return file.exists()
+}
+
+fun createNewImageFile(context: Context): File {
+    val timeStamp: String = getDateTimeInstance().format(Date())
+    val imagePath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+    return File(imagePath, "${timeStamp}.jpg")
 }
