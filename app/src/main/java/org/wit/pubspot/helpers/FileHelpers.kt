@@ -1,12 +1,10 @@
 package org.wit.pubspot.helpers
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Environment
 import timber.log.Timber.e
 import java.io.*
 import java.text.DateFormat.getDateTimeInstance
-import java.text.SimpleDateFormat
 import java.util.*
 
 fun write(context: Context, fileName: String, data: String) {
